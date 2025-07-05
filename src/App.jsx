@@ -179,7 +179,7 @@ function App() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <span role="img" aria-label="fish">🐟</span> deepseafeels <span role="img" aria-label="fish">🐟</span>
+            <span role="img" aria-label="fish">🐟</span> Deepseafeels <span role="img" aria-label="fish">🐟</span>
           </motion.h1>
           <div className="glass rounded-2xl p-3 max-w-2xl mx-auto mt-2 border border-white/10">
             <p className="text-base text-white/90 font-normal">
