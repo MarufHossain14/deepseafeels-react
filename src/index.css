@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: #223A5E;
+  background: linear-gradient(135deg, #6EC1E4 0%, #A5F3FC 50%, #B9FBC0 85%, #C7D2FE 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6EC1E4 0%, #A5F3FC 50%, #B9FBC0 85%, #C7D2FE 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Enhanced underwater bubble effect */
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle, rgba(165,243,252,0.18) 0%, rgba(255, 180, 162, 0.13) 70%, transparent 100%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(100vh) scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) scale(1) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Enhanced fish swimming animation */
+.fish-swim {
+  animation: fishSwim 4s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes fishSwim {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  25% { transform: translateY(-5px) rotate(-2deg) scale(1.02); }
+  50% { transform: translateY(0) rotate(0deg) scale(1); }
+  75% { transform: translateY(5px) rotate(2deg) scale(0.98); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+.swimming {
+  animation: fishSwim 3.5s infinite ease-in-out;
+}
+
+/* Enhanced card flip animation */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.card-flip {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 4px 32px 0 rgba(31, 38, 135, 0.08);
+  border: 1px solid rgba(200, 230, 255, 0.25);
+}
+
+.header-glass {
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.06);
+  border: 1px solid rgba(200, 230, 255, 0.18);
+}
+
+/* Enhanced button styles */
+.btn-primary {
+  background: linear-gradient(90deg, #00bcd4 0%, #2196f3 100%);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #2196f3 0%, #00bcd4 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.18);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #2196f3;
+  border: 1.5px solid #b2ebf2;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.06);
+}
+
+.btn-secondary:hover {
+  background: #e0f7fa;
+  color: #00bcd4;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Quiz button styles */
+.quiz-button {
+  transition: all 0.2s;
+  cursor: pointer;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 28px;
+  margin: 0.25rem 0;
+  background: linear-gradient(90deg, #FFB4A2 0%, #FFE066 50%, #B9FBC0 100%);
+  color: #223A5E;
+  border: none;
+  box-shadow: 0 4px 16px 0 rgba(34, 58, 94, 0.10);
+}
+
+.quiz-button:hover, .quiz-button:focus {
+  background: linear-gradient(90deg, #C7D2FE 0%, #A5F3FC 50%, #FFB4A2 100%);
+  color: #fff;
+  box-shadow: 0 8px 32px 0 rgba(199, 210, 254, 0.13);
+}
+
+.quiz-button:active {
+  transform: scale(0.98);
+}
+
+/* Enhanced text shadows */
+.text-glow {
+  text-shadow: 0 0 12px #C7D2FE;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+.card-fish {
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 0 auto;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba(34, 58, 94, 0.10);
+}
+
+.card-fish h2, .glass h2, h2, .text-glow {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #223A5E;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 8px #C7D2FE;
+}
+
+.card-fish .fish-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.card-fish .fish-desc, .glass p, p {
+  color: #334E68;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-fish .fish-mood {
+  font-size: 1.1rem;
+  color: #00bcd4;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Confetti animation for result screen */
+.confetti {
+  position: absolute;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 40;
+}
+.confetti-piece {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: confetti-fall 2.5s linear forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-40px) scale(1) rotate(0deg); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(100vh) scale(0.7) rotate(360deg); opacity: 0; }
+}
+
+/* Wavy divider for aquatic transitions */
+.wavy-divider {
+  width: 100%;
+  height: 40px;
+  background: url('data:image/svg+xml;utf8,<svg width="100%" height="40" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 20 Q360 40 720 20 T1440 20 V40 H0 V20Z" fill="%23A5F3FC"/></svg>') repeat-x;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
