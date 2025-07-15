@@ -5,7 +5,7 @@ import { quizQuestions, calculateFishFromPoints } from '../data/fishData';
 
 // Accent palette for bubbles
 const bubbleColors = [
-  '#38B6FF', '#7EE8FA', '#234E70'
+  '#60A5FA', '#93C5FD', '#6B7280'
 ];
 
 // Animation variants
@@ -21,9 +21,9 @@ const variants = {
   },
   question: { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } },
   option: {
-    initial: { scale: 1, background: 'rgba(255,255,255,0.97)', border: '2px solid transparent', color: '#234E70' },
-    hover: { scale: 1.04 },
-    selected: { scale: 1.08, background: '#38B6FF', border: '2px solid #234E70', color: '#fff' }
+    initial: { scale: 1, background: '#ffffff', border: '1px solid #E5E7EB', color: '#374151' },
+    hover: { scale: 1.02 },
+    selected: { scale: 1.02, background: '#3B82F6', border: '1px solid #3B82F6', color: '#fff' }
   },
   splash: { initial: { scale: 0, opacity: 0.7 }, animate: { scale: 2.2, opacity: 0 }, exit: {} },
   toast: {
@@ -78,10 +78,10 @@ const LightRays = () => (
 
 // Progress bar with floating indicators
 const ProgressBar = ({ progress }) => (
-  <div className="w-full max-w-xl mx-auto mt-2 mb-6 relative h-5" aria-label={`Progress: ${Math.round(progress)}%`}>
-    <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-cyan-100 to-yellow-100 rounded-full" />
+  <div className="w-full max-w-xl mx-auto mt-2 mb-6 relative h-4" aria-label={`Progress: ${Math.round(progress)}%`}>
+    <div className="absolute inset-0 bg-gray-200 rounded-full" />
     <motion.div
-      className="h-5 rounded-full bg-gradient-to-r from-[#234E70] via-[#38B6FF] to-[#FFD166] shadow-md"
+      className="h-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm"
       initial={{ width: 0 }}
       animate={{ width: `${progress}%` }}
       transition={{ duration: 0.5, type: 'spring' }}
@@ -92,10 +92,10 @@ const ProgressBar = ({ progress }) => (
         key={i}
         className="absolute top-1/2 -translate-y-1/2"
         style={{ left: `${(progress / 4) * i}%` }}
-        animate={{ y: [0, -8, 0] }}
+        animate={{ y: [0, -4, 0] }}
         transition={{ duration: 2 + i * 0.2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <div className="w-3 h-3 rounded-full" style={{ background: bubbleColors[i], opacity: 0.8 }} />
+        <div className="w-2 h-2 rounded-full bg-blue-400 opacity-80" />
       </motion.div>
     ))}
   </div>
@@ -116,13 +116,25 @@ const MoodQuiz = ({ onComplete, onBack }) => {
   const progress = useMemo(() => ((current + 1) / quizQuestions.length) * 100, [current]);
 
   const handleSelect = useCallback((idx) => {
+    console.log('Option selected:', idx);
     setSelected(idx);
     setSplash(true);
-    timerRef.current = setTimeout(() => setSplash(false), 350);
+    if (timerRef.current) clearTimeout(timerRef.current); // Clear any existing timer
+    timerRef.current = setTimeout(() => {
+      setSplash(false);
+      console.log('Splash reset to false');
+    }, 350);
   }, []);
 
   const handleNext = useCallback(() => {
-    if (selected === null) return;
+    console.log('Next button clicked');
+    console.log('Current question index:', current);
+    console.log('Selected option:', selected);
+    console.log('Splash state:', splash);
+    if (selected === null) {
+      console.warn('Next button clicked without a valid selection');
+      return;
+    }
     const pts = question.options[selected].points;
     const updated = scores.map((s, i) => s + pts[i]);
     setScores(updated);
@@ -137,7 +149,7 @@ const MoodQuiz = ({ onComplete, onBack }) => {
         onComplete(calculateFishFromPoints(updated));
       }, 1200);
     }
-  }, [current, selected, scores, question, onComplete]);
+  }, [current, selected, splash, scores, question, onComplete]);
 
   const handleBack = useCallback(() => {
     if (current === 0) return onBack();
@@ -159,11 +171,11 @@ const MoodQuiz = ({ onComplete, onBack }) => {
             className="relative w-full max-w-xl mx-auto text-center overflow-visible"
             style={{ minHeight: 320 }}
           >
-            <motion.div variants={variants.card} initial="hidden" animate="visible" exit="exit" className="absolute inset-0 z-0 rounded-3xl bg-white/80 shadow-lg border border-blue-100 backdrop-blur-lg" />
+            <motion.div variants={variants.card} initial="hidden" animate="visible" exit="exit" className="absolute inset-0 z-0 rounded-2xl bg-white/95 shadow-lg border border-gray-100 backdrop-blur-sm" />
             <CardBubbles />
             <LightRays />
             <div className="relative z-10 p-8">
-              <motion.h2 variants={variants.question} className="text-2xl md:text-3xl font-bold mb-6 text-blue-900" aria-label={question.question}>
+              <motion.h2 variants={variants.question} className="text-2xl md:text-3xl font-bold mb-6 text-gray-800" aria-label={question.question}>
                 {question.question}
               </motion.h2>
               <div className="flex flex-col gap-4">
@@ -171,14 +183,14 @@ const MoodQuiz = ({ onComplete, onBack }) => {
                   <motion.button
                     key={i}
                     type="button"
-                    className={`quiz-button w-full py-3 px-6 rounded-full font-semibold text-base border focus:outline-none focus:ring-2 focus:ring-blue-300 relative overflow-hidden ${selected === i ? 'ring-2 ring-blue-400' : ''}`}
+                    className={`quiz-button w-full py-3 px-6 rounded-lg font-medium text-base border focus:outline-none focus:ring-2 focus:ring-blue-300 relative overflow-hidden ${selected === i ? 'ring-2 ring-blue-400' : ''}`}
                     variants={variants.option}
                     initial="initial"
                     whileHover="hover"
                     animate={selected === i ? 'selected' : 'initial'}
                     onClick={() => handleSelect(i)}
                     disabled={splash}
-                    style={selected === i ? { background: '#38B6FF', border: '2px solid #234E70', color: '#fff' } : {}}
+                    style={selected === i ? { background: '#3B82F6', border: '1px solid #3B82F6', color: '#fff' } : {}}
                   >
                     {opt.text}
                     {selected === i && splash && (
@@ -192,17 +204,26 @@ const MoodQuiz = ({ onComplete, onBack }) => {
                 ))}
               </div>
               <div className="flex justify-between items-center mt-8">
-                <button type="button" className="quiz-button bg-gradient-to-r from-purple-200 via-blue-100 to-cyan-100 text-blue-900 py-2 px-6 rounded-full font-semibold" onClick={handleBack}>
+                <button 
+                  type="button" 
+                  className="btn-secondary nav-button-large" 
+                  onClick={handleBack}
+                >
                   ← Back
                 </button>
-                <button type="button" className={`quiz-button bg-gradient-to-r from-blue-400 via-cyan-400 to-pink-400 text-white py-2 px-6 rounded-full font-semibold ml-4 ${selected === null ? 'opacity-60 cursor-not-allowed' : ''}`} onClick={handleNext} disabled={!selected}>
+                <button 
+                  type="button" 
+                  className={`btn-primary nav-button-large ${selected === null ? 'opacity-50 cursor-not-allowed' : ''}`} 
+                  onClick={handleNext} 
+                  disabled={selected === null}
+                >
                   {current === quizQuestions.length - 1 ? 'Finish' : 'Next →'}
                 </button>
               </div>
             </div>
           </motion.div>
         ) : (
-          <motion.div key="complete" variants={variants.card} initial="hidden" animate="visible" exit="exit" className="flex flex-col items-center justify-center min-h-[200px] text-blue-800">
+          <motion.div key="complete" variants={variants.card} initial="hidden" animate="visible" exit="exit" className="flex flex-col items-center justify-center min-h-[200px] text-gray-700">
             <motion.div className="text-4xl mb-4" animate={{ scale: [0.8, 1.2], rotate: [-10, 10] }} transition={{ yoyo: Infinity, duration: 0.7 }}>
               🎉
             </motion.div>

@@ -96,9 +96,9 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
         <BubbleBackground />
-        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-white/10"></div>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -119,7 +119,7 @@ function App() {
             🐠
           </motion.div>
           <motion.h1 
-            className="text-5xl font-bold text-white mb-6 text-glow"
+            className="text-5xl font-bold text-gray-700 mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -127,7 +127,7 @@ function App() {
             FishMood
           </motion.h1>
           <motion.p 
-            className="text-2xl text-white/90 font-medium"
+            className="text-2xl text-gray-600 font-medium"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
@@ -140,9 +140,9 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
-            <div className="w-16 h-1 bg-white/50 rounded-full mx-auto overflow-hidden">
+            <div className="w-16 h-1 bg-gray-300 rounded-full mx-auto overflow-hidden">
               <motion.div
-                className="h-full bg-white rounded-full"
+                className="h-full bg-blue-500 rounded-full"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -155,9 +155,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 relative overflow-hidden">
       <BubbleBackground />
-      <div className="absolute inset-0 bg-black/5"></div>
+      <div className="absolute inset-0 bg-white/20"></div>
       
       {/* Debug Info */}
       <DebugInfo 
@@ -166,28 +166,7 @@ function App() {
         points={debugPoints}
       />
       
-      <div className="w-full max-w-5xl mx-auto relative z-10">
-        {/* Header */}
-        <motion.header 
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-white mb-2 text-glow flex items-center justify-center gap-2"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
-            <span role="img" aria-label="fish">🐟</span> Deepseafeels <span role="img" aria-label="fish">🐟</span>
-          </motion.h1>
-          <div className="glass rounded-2xl p-3 max-w-2xl mx-auto mt-2 border border-white/10">
-            <p className="text-base text-white/90 font-normal">
-              Discover which deep-sea fish represents your current mood with our quirky mood quiz! Each fish has its own personality and story to tell.
-            </p>
-          </div>
-        </motion.header>
-
+      <div className="w-full max-w-7xl mx-auto relative z-10">
         {/* Main Content */}
         <div className="flex flex-col items-center">
           <AnimatePresence mode="wait">
@@ -211,21 +190,21 @@ function App() {
               <div key="result" className="w-full flex flex-col items-center relative">
                 <Confetti show={true} />
                 <FishCard fish={currentFish} />
-                <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <button
-                    className="quiz-button bg-gradient-to-r from-blue-400 to-blue-600 text-white py-3 px-6 rounded-full font-semibold text-base transition-all duration-300 shadow-md"
+                    className="btn-secondary action-button-large"
                     onClick={handleRevealAnother}
                   >
                     🐟 Discover Another Fish
                   </button>
                   <button
-                    className="quiz-button bg-gradient-to-r from-pink-400 to-pink-600 text-white py-3 px-6 rounded-full font-semibold text-base transition-all duration-300 shadow-md"
+                    className="btn-primary action-button-large"
                     onClick={handleTakeQuiz}
                   >
                     🎯 Take the Quiz Again
                   </button>
                   <button
-                    className="quiz-button bg-gradient-to-r from-green-400 to-green-600 text-white py-3 px-6 rounded-full font-semibold text-base transition-all duration-300 shadow-md"
+                    className="btn-secondary action-button-large"
                     onClick={handleRetakeQuiz}
                   >
                     🔄 Retake Quiz
@@ -253,21 +232,16 @@ function App() {
           transition={{ delay: 1.2, duration: 0.8 }}
         >
           <div
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full shadow-lg"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl shadow-sm bg-white/80 backdrop-blur-sm border border-gray-200"
             style={{
-              background: 'linear-gradient(90deg, rgba(56,182,255,0.18) 0%, rgba(255,255,255,0.55) 100%)',
-              border: '2px solid #7EE8FA',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              fontSize: '1.15rem',
-              fontWeight: 600,
-              color: '#234E70',
+              fontSize: '1.1rem',
+              fontWeight: 500,
+              color: '#374151',
               marginTop: '1.5rem',
               marginBottom: '1.5rem',
               minWidth: 260,
             }}
           >
-            {/* Animated fish SVG */}
             <motion.span
               className="inline-block mr-2"
               animate={{ x: [0, 8, 0], rotate: [0, 10, -10, 0] }}
@@ -275,16 +249,16 @@ function App() {
               style={{ display: 'inline-block', width: 32, height: 22 }}
             >
               <svg width="32" height="22" viewBox="0 0 90 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="45" cy="30" rx="18" ry="10" fill="#38B6FF"/>
-                <ellipse cx="30" cy="30" rx="5" ry="3" fill="#38B6FF"/>
-                <ellipse cx="60" cy="30" rx="5" ry="3" fill="#38B6FF"/>
+                <ellipse cx="45" cy="30" rx="18" ry="10" fill="#60A5FA"/>
+                <ellipse cx="30" cy="30" rx="5" ry="3" fill="#60A5FA"/>
+                <ellipse cx="60" cy="30" rx="5" ry="3" fill="#60A5FA"/>
                 <circle cx="40" cy="27" r="2" fill="#fff"/>
-                <circle cx="40" cy="27" r="1" fill="#234E70"/>
+                <circle cx="40" cy="27" r="1" fill="#374151"/>
                 <circle cx="50" cy="27" r="2" fill="#fff"/>
-                <circle cx="50" cy="27" r="1" fill="#234E70"/>
-                <path d="M43 35 Q45 38 47 35" stroke="#234E70" strokeWidth="1.5" fill="none"/>
-                <polygon points="18,30 6,22 6,38" fill="#7EE8FA"/>
-                <polygon points="72,30 84,22 84,38" fill="#7EE8FA"/>
+                <circle cx="50" cy="27" r="1" fill="#374151"/>
+                <path d="M43 35 Q45 38 47 35" stroke="#374151" strokeWidth="1.5" fill="none"/>
+                <polygon points="18,30 6,22 6,38" fill="#93C5FD"/>
+                <polygon points="72,30 84,22 84,38" fill="#93C5FD"/>
               </svg>
             </motion.span>
             <span className="inline-block">
